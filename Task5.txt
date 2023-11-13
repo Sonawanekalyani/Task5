@@ -1,0 +1,86 @@
+contacts = []
+
+def add_contact():
+    name = input("Enter store name: ")
+    phone = input("Enter phone number: ")
+    email = input("Enter email: ")
+    address = input("Enter address: ")
+    contact = {"name": name, "phone": phone, "email": email, "address": address}
+    contacts.append(contact)
+    print(f"Contact for {name} added successfully!")
+
+def view_contacts():
+    if not contacts:
+        print("No contacts available.")
+    else:
+        for idx, contact in enumerate(contacts):
+            print(f"{idx + 1}. Name: {contact['name']}, Phone: {contact['phone']}")
+
+def search_contacts():
+    search_term = input("Enter the name or phone number to search: ")
+    search_results = []
+    for contact in contacts:
+        if search_term in contact['name'] or search_term in contact['phone']:
+            search_results.append(contact)
+    if not search_results:
+        print("No matching contacts found.")
+    else:
+        print("Search results:")
+        for contact in search_results:
+            print(f"Name: {contact['name']}, Phone: {contact['phone']}")
+
+def update_contact():
+    view_contacts()
+    if not contacts:
+        return
+
+    contact_idx = int(input("Enter the number of the contact to update: ")) - 1
+    if 0 <= contact_idx < len(contacts):
+        updated_name = input("Enter updated store name: ")
+        updated_phone = input("Enter updated phone number: ")
+        contacts[contact_idx]["name"] = updated_name
+        contacts[contact_idx]["phone"] = updated_phone
+        print("Contact updated successfully!")
+    else:
+        print("Invalid contact number. Please try again.")
+
+def delete_contact():
+    view_contacts()
+    if not contacts:
+        return
+
+    contact_idx = int(input("Enter the number of the contact to delete: ")) - 1
+    if 0 <= contact_idx < len(contacts):
+        deleted_name = contacts[contact_idx]["name"]
+        del contacts[contact_idx]
+        print(f"Contact for {deleted_name} deleted successfully!")
+    else:
+        print("Invalid contact number. Please try again.")
+
+while True:
+    print("\nContact Management System")
+    print("1. Add Contact")
+    print("2. View Contacts")
+    print("3. Search Contacts")
+    print("4. Update Contact")
+    print("5. Delete Contact")
+    print("6. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        add_contact()
+    elif choice == "2":
+        view_contacts()
+    elif choice == "3":
+        search_contacts()
+    elif choice == "4":
+        update_contact()
+    elif choice == "5":
+        delete_contact()
+    elif choice == "6":
+        print("Goodbye!")
+        break
+    else:
+        print("Invalid choice. Please try again.")
+
